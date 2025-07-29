@@ -12,6 +12,10 @@ function dosometask() {
         resolve("Task Result");
     });
 }
+const {
+    pbkdf2,
+} = require('crypto');  
+
 
 dosometask()
     .then((res) => {

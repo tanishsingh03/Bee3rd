@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Display Users</title>
+</head>
+<body>
+  <h1>User List</h1>
+  <ul class="user-container"></ul>
+
+  <script>
+    const userContainer = document.querySelector('.user-container');
+
+    // Function to display each user
+    function displayuser(data) {
+      let li = document.createElement("li");
+      li.setAttribute("class", "user-item");
+      li.innerHTML = `
+        <div class="user-info">
+          <h1>${data.name}</h1>
+          <p>Username: ${data.username}</p>    
+          <p>Role: ${data.role}</p>
+          <div class="user-button">
+            <button class="user-delete">❌</button>
+            <button class="user-edit">👍</button>
+          </div>
+        </div>
+      `;
+      userContainer.appendChild(li);
+    }
+
+    // Fetch users from backend
+    fetch('/users') // Make sure your server has this route
+      .then(res => res.json())
+      .then(data => {
+        data.forEach(user => {
+          displayuser(user);
+        });
+      })
+      .catch(err => {
+        console.error("Failed to load users:", err);
+      });
+  </script>
+</body>
+</html>
